@@ -19,3 +19,13 @@ npm run build --report
 ```
 
 For a detailed explanation on how things work, check out the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
+
+## Start Step
+
+```bash
+#start server
+node test_server/post-demo.js
+
+#start web
+npm run dev
+```
