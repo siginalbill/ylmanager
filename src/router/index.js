@@ -48,7 +48,10 @@ export default new Router({
             {path: '/admin/addservice', component: Addaccount, name: '添加客服', meta:{ isLogin:true, auth: 'admin'}},
             {path: '/admin/adddoctor', component: Addaccount, name: '添加医生', meta:{ isLogin:true, auth: 'admin'}}] },
         { path: '/admin/serviceList', component: ServiceList, name: '客服列表', iconCls: 'fa fa-bar-chart',
-          meta:{isLogin:true, auth: 'admin'} }
+          meta:{isLogin:true, auth: 'admin'},
+          children:[
+            {path: '/admin/serviceList1', component: ServiceList, name: '所有客服', meta:{ isLogin:true, auth: 'admin'}},
+            {path: '/admin/serviceList2', component: ServiceList, name: '在线客服', meta:{ isLogin:true, auth: 'admin'}}] },
       ],
       meta:{
         // 是否需要登录权限
