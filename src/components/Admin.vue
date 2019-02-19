@@ -90,16 +90,8 @@
         collapsed:false,
         sysUserName: '',
         sysUserAvatar: img,
-        // form: {
-        //   name: '',
-        //   region: '',
-        //   date1: '',
-        //   date2: '',
-        //   delivery: false,
-        //   type: [],
-        //   resource: '',
-        //   desc: ''
-        // }
+        // 定时器
+        timer: null,
       }
     },
     methods: {
@@ -133,7 +125,28 @@
       // 显示/关闭二级菜单
       showMenu(i,status){
         this.$refs.menuCollapsed.getElementsByClassName('submenu-hook-'+i)[0].style.display=status?'block':'none';
+      },
+      //设置定时器
+      setTimer(){
+        if(this.timer == null) {
+          this.timer = setInterval( () => {
+            console.log('开始定时...每过一秒执行一次');
+            this.socketApi.sendSock('ack', (e) => {console.log(e)});
+          }, 1000)
+        }
       }
+    },
+    created: function() {
+      // 每次进入界面时，先清除之前的所有定时器，然后启动新的定时器
+      clearInterval(this.timer);
+      this.timer = null;
+      this.setTimer();
+      this.socketApi.initWebSocket();
+    },
+    destroyed: function () {
+      // 每次离开当前界面时，清除定时器
+      clearInterval(this.timer);
+      this.timer = null
     },
     // 挂载用户信息
     mounted() {

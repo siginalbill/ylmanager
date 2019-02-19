@@ -72,7 +72,6 @@
         this.$axios.post("/admin/servicelist", {})
           .then(data => {
             this.list = data.data.data.items;
-            console.log(data.data.data.items);
             this.listLoading = false
             }
           )

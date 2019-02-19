@@ -1,16 +1,16 @@
 var websock = null;
 var global_callback = null;
-var serverPort = '5000';	//webSocket连接端口
+var serverPort = '8082';	//webSocket连接端口
 
 
 function getWebIP(){
-  return this.$axios.defaults.baseURL;
+  return 'localhost';
 }
 
 //初始化weosocket
 function initWebSocket(){
   //ws地址
-  var wsuri = "ws://" +getWebIP()+ ":" + serverPort;
+  var wsuri = "ws://" +getWebIP()+ ":" + serverPort + '/ws';
   websock = new WebSocket(wsuri);
   websock.onmessage = function(e){
     websocketonmessage(e);
@@ -28,7 +28,7 @@ function initWebSocket(){
   }
 }
 
-// 实际调用的方法
+// 实际调用的方法 发送数据,回调方法
 function sendSock(agentData,callback){
   global_callback = callback;
   if (websock.readyState === websock.OPEN) {
@@ -49,7 +49,8 @@ function sendSock(agentData,callback){
 
 //数据接收
 function websocketonmessage(e){
-  global_callback(JSON.parse(e.data));
+  // console.log(global_callback);
+  global_callback(e.data);
 }
 
 //数据发送
@@ -66,6 +67,6 @@ function websocketOpen(e){
   console.log("连接成功");
 }
 
-initWebSocket();
+// initWebSocket();
 
-export{sendSock}
+export{sendSock, initWebSocket}

@@ -18,6 +18,8 @@
 
 <script>
 
+    import {setTokenCookie} from "../api/cookie";
+
     export default {
         data() {
             return {
@@ -41,7 +43,7 @@
             };
         },
         created () {
-          let user = this.cookieApi.getCookie();
+          let user = this.cookieApi.getUserCookie();
           if(user != null){
             this.ruleForm2.account = user.userAccount;
             this.ruleForm2.checkPass = user.userPass;
@@ -74,6 +76,8 @@
                             // 我们设置一个名为Flag，值为isLogin的字段，作用是如果Flag有值且为isLogin的时候，证明用户已经登录了。
                             //localStorage.setItem("loginFlag", "isLogin");
                             sessionStorage.setItem("auth", data.data.userFlag);
+                            // 保存token，用于后台身份认证
+                            this.cookieApi.setTokenCookie( data.data.token);
 
                             sessionStorage.setItem("user", JSON.stringify({name:data.data.userName}));
                             // 登录成功提示
@@ -83,10 +87,10 @@
                             if (this.checked === true){
                               // 调用配置cookie方法,传入账号名，密码，和保存天数3个参数
                               // cookieApi在main.js中引入
-                              this.cookieApi.setCookie(this.ruleForm2.account, this.ruleForm2.checkPass, 7, true);
+                              this.cookieApi.setUserCookie(this.ruleForm2.account, this.ruleForm2.checkPass, 7, true);
                             }else {
                               // 删除cookie
-                              this.cookieApi.setCookie("", "", -1, ""); //修改2值都为空，天数为负1天
+                              this.cookieApi.setUserCookie("", "", -1, ""); //修改2值都为空，天数为负1天
                             }
                             this.$router.push("/" + data.data.userFlag);
                           } else {
