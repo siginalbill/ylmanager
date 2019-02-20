@@ -31,10 +31,11 @@
         <!--使用style="width: 230px" 解决折叠后显示异常的bug-->
         <el-menu :default-active="$route.path" class="el-menu-vertical-demo" @open="handleopen" @close="handleclose" @select="handleselect"
                  unique-opened router v-show="!collapsed" style="width: 230px">
-          <template v-for="(item,index) in $router.options.routes[2].children" v-if="!item.hidden">
+          <!--item.meta.auth==='admin' 显示响应账号权限页面-->
+          <template v-for="(item,index) in $router.options.routes" v-if="!item.hidden && item.meta.auth==='admin'">
             <el-submenu :index="index+''" v-if="!item.leaf">
               <template slot="title"><i :class="item.iconCls"></i>{{item.name}}</template>
-              <el-menu-item v-for="child in item.children" :index="child.path" :key="child.path" v-if="!child.hidden" style="color: #48576a;">{{child.name}}</el-menu-item>
+              <el-menu-item v-for="child in item.children" :index="child.path" :key="child.path" v-if="!child.hidden ">{{child.name}}</el-menu-item>
             </el-submenu>
             <el-menu-item v-if="item.leaf&&item.children.length>0" :index="item.children[0].path"><i :class="item.iconCls"></i>{{item.children[0].name}}</el-menu-item>
           </template>
@@ -130,8 +131,9 @@
       setTimer(){
         if(this.timer == null) {
           this.timer = setInterval( () => {
-            console.log('开始定时...每过一秒执行一次');
-            this.socketApi.sendSock('ack', (e) => {console.log(e)});
+            // 定时发送
+            // console.log('开始定时...每过一秒执行一次');
+            // this.socketApi.sendSock('ack', (e) => {console.log(e)});
           }, 1000)
         }
       }

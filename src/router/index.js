@@ -7,8 +7,12 @@ import Doctor from '@/components/Doctor'
 import Service from '@/components/Service'
 
 // 管理员组件
-import ServiceList from '@/components/admin/ServiceList'
-import Addaccount from '@/components/admin/Addaccount'
+import Servicelist from '@/components/admin/ServiceList'
+import Addservice from '@/components/admin/Addservice'
+import Adddoctor from '@/components/admin/Adddoctor'
+import Changedoctor from '@/components/admin/Changedoctor'
+import Changeaccount from '@/components/admin/Changeaccount'
+import Serviceonlinelist from '@/components/admin/Serviceonlinelist'
 
 Vue.use(Router)
 
@@ -36,29 +40,21 @@ export default new Router({
     },
     //管理员主界面
     {
-      path: '/admin',
-      component: Admin,
-      name: '管理员',
-      // 图标
-      iconCls: 'fa fa-id-card-o',
-      children: [
-        { path: '/admin/addaccount', component: Addaccount, name: '添加账号', iconCls: 'fa fa-address-card',
+      path: '/admin', component:Admin, name: '账号管理', iconCls: 'fa fa-address-card',
           meta:{ isLogin:true, auth: 'admin'},
           children:[
-            {path: '/admin/addservice', component: Addaccount, name: '添加客服', meta:{ isLogin:true, auth: 'admin'}},
-            {path: '/admin/adddoctor', component: Addaccount, name: '添加医生', meta:{ isLogin:true, auth: 'admin'}}] },
-        { path: '/admin/serviceList', component: ServiceList, name: '客服列表', iconCls: 'fa fa-bar-chart',
+            {path: '/admin/add_service', component: Addservice, name: '添加客服', meta:{ isLogin:true, auth: 'admin'}},
+            {path: '/admin/add_doctor', component: Adddoctor, name: '添加医生', meta:{ isLogin:true, auth: 'admin'}},
+            {path: '/admin/change_account', component: Changeaccount, name: '修改账号', meta:{ isLogin:true, auth: 'admin'}},
+            {path: '/admin/change_doctor', component: Changedoctor, name: '医生信息修改', meta:{ isLogin:true, auth: 'admin'}},
+            ]
+    },
+    { path: '/admin/', component: Admin, name: '客服管理', iconCls: 'fa fa-bar-chart',
           meta:{isLogin:true, auth: 'admin'},
           children:[
-            {path: '/admin/serviceList1', component: ServiceList, name: '所有客服', meta:{ isLogin:true, auth: 'admin'}},
-            {path: '/admin/serviceList2', component: ServiceList, name: '在线客服', meta:{ isLogin:true, auth: 'admin'}}] },
-      ],
-      meta:{
-        // 是否需要登录权限
-        isLogin:true,
-        // 账号类型
-        auth: 'admin'
-      }
+            {path: '/admin/service_list1', component: Servicelist, name: '所有客服', meta:{ isLogin:true, auth: 'admin'}},
+            {path: '/admin/service_list2', component: Serviceonlinelist, name: '在线客服', meta:{ isLogin:true, auth: 'admin'}}
+            ]
     },
     // 客服主界面
     {
