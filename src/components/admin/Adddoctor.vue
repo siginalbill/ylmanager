@@ -4,7 +4,7 @@
     <p></p>
     <el-form ref="form" :model="form" label-width="120px">
 
-      <el-form-item label="医生工号" >
+      <el-form-item label="医生账号" >
         <!--栅格化控制长度-->
         <el-col :span="20">
           <el-input v-model="form.account"/>
