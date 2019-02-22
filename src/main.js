@@ -8,6 +8,10 @@ import router from './router'
 import * as cookieApi from './api/cookie'
 Vue.prototype.cookieApi = cookieApi;
 
+// 记住密码功能
+import * as userApi from './api/localstorage'
+Vue.prototype.userApi = userApi;
+
 // 注册axios为全局属性
 import axios from 'axios'
 // axios 配置

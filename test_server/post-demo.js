@@ -24,10 +24,12 @@ app.all('*', function(req, res, next) {
 
 app.ws('/ws', function(ws, req) {
   // util.inspect(ws);
+  console.log(ws.token);
   ws.on('message', function(msg) {
     console.log('_message');
     console.log(msg);
     ws.send('echo:' + msg);
+
   });
 });
 

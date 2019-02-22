@@ -8,9 +8,9 @@ function getWebIP(){
 }
 
 //初始化weosocket
-function initWebSocket(){
+function initWebSocket(params){
   //ws地址
-  var wsuri = "ws://" +getWebIP()+ ":" + serverPort + '/ws';
+  var wsuri = "ws://" +getWebIP()+ ":" + serverPort + '/ws' + "?" + params;
   websock = new WebSocket(wsuri);
   websock.onmessage = function(e){
     websocketonmessage(e);

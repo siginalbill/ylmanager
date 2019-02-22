@@ -31,7 +31,7 @@
                 },
                 rules2: {
                     account: [
-                        { required: true, message: '请输入工号', trigger: 'blur' },
+                        { required: true, message: '请输入账号', trigger: 'blur' },
                         //{ validator: validaePass }
                     ],
                     checkPass: [
@@ -43,8 +43,10 @@
             };
         },
         created () {
-          let user = this.cookieApi.getUserCookie();
-          if(user != null){
+          // 自动填充
+          let user = this.userApi.getUserCookie();
+          user = JSON.parse(user);
+          if(user != null && user.name != ""){
             this.ruleForm2.account = user.userAccount;
             this.ruleForm2.checkPass = user.userPass;
             this.ruleForm2.checked = user.remeberFlag;
@@ -87,10 +89,10 @@
                             if (this.checked === true){
                               // 调用配置cookie方法,传入账号名，密码，和保存天数3个参数
                               // cookieApi在main.js中引入
-                              this.cookieApi.setUserCookie(this.ruleForm2.account, this.ruleForm2.checkPass, 7, true);
+                              this.userApi.setUserCookie(this.ruleForm2.account, this.ruleForm2.checkPass, 7, true);
                             }else {
                               // 删除cookie
-                              this.cookieApi.setUserCookie("", "", -1, ""); //修改2值都为空，天数为负1天
+                              this.userApi.setUserCookie("", "", -1, ""); //修改2值都为空，天数为负1天
                             }
                             this.$router.push("/" + data.data.userFlag);
                           } else {

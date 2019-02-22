@@ -82,6 +82,7 @@
 <script>
   // 导入图片资源
   import img from '../assets/20170117034706_QArW4.jpeg'
+  import {getTokenCookie} from "../api/cookie";
   export default {
     data() {
       return {
@@ -99,6 +100,7 @@
         console.log('submit!');
       },
       handleopen() {
+        this.socketApi.sendSock('ack', (e) => {console.log(e)});
         //console.log('handleopen');
       },
       handleclose() {
@@ -139,10 +141,11 @@
     },
     created: function() {
       // 每次进入界面时，先清除之前的所有定时器，然后启动新的定时器
-      clearInterval(this.timer);
-      this.timer = null;
-      this.setTimer();
-      this.socketApi.initWebSocket();
+      // clearInterval(this.timer);
+      // this.timer = null;
+      // this.setTimer();
+      // 建立websocket连接，添加token参数
+      this.socketApi.initWebSocket("token="+getTokenCookie());
     },
     destroyed: function () {
       // 每次离开当前界面时，清除定时器

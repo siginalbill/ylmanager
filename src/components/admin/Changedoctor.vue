@@ -2,12 +2,12 @@
 
   <div class="app-container">
     <p></p>
-    <el-form ref="form" :model="form" label-width="120px">
+    <el-form ref="form" :model="form" label-width="180px">
 
-      <el-form-item label="医生账号" >
+      <el-form-item label="医生账号(不能为空)">
         <!--栅格化控制长度-->
         <el-col :span="20">
-          <el-input v-model="form.account"/>
+          <el-input v-model="form.account"  placeholder="不能为空" />
         </el-col>
       </el-form-item>
 
@@ -17,19 +17,22 @@
         </el-col>
       </el-form-item>
 
-      <el-form-item label="上传图片">
+      <el-form-item label="上传图片(不能为空)">
         <el-col :span="20">
           <!--上传医生图片-->
           <el-upload
             class="upload-file"
             drag
+            accept="image/png,image/gif.image/jpg,image/jpeg"
+            :limit=1
+            list-type="picture-card"
             :action="doUpload()"
             :before-upload="beforeUpload"
             ref="newupload"
             multiple
             :auto-upload="false">
             <i class="el-icon-upload"></i>
-            <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
+            <!--<div class="el-upload__text">将文件拖到此处，或<em>点击上传</em>，不能为空</div>-->
           </el-upload>
         </el-col>
       </el-form-item>
@@ -95,10 +98,12 @@
           alert('成功');
         })
       },
-      newSubmitForm(){//确定上传
+      newSubmitForm(){
+        //确定上传
         this.$refs.newupload.submit();
       },
       doUpload(){
+        // 传一个无用url
         return "/useless";
       }
     },

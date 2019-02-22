@@ -11,10 +11,10 @@
         </el-select>
       </el-form-item>
 
-      <el-form-item label="要修改的工号" >
+      <el-form-item label="要修改的账号" >
         <!--栅格化控制长度-->
         <el-col :span="20">
-          <el-input v-model="form.account"/>
+          <el-input v-model="form.account" placeholder="医生为账号、客服为工号"/>
         </el-col>
       </el-form-item>
 
@@ -44,7 +44,7 @@
         this.$axios.post("/admin/addService", {account: this.form.account, type: this.form.type, value: this.form.value})
           .then(data => {
             if (data.data.status === 2000) {
-              this.$message('创建成功');
+              this.$message('修改成功');
             } else {
               this.$message({
                 message: data.data.message,
