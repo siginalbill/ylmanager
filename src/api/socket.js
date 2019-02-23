@@ -37,12 +37,12 @@ function sendSock(agentData){
   }else if (websock.readyState === websock.CONNECTING) {
     // 若是 正在开启状态，则等待1s后重新调用
     setTimeout(function () {
-      sendSock(agentData,callback);
+      sendSock(agentData);
     }, 1000);
   }else {
     // 若未开启 ，则等待1s后重新调用
     setTimeout(function () {
-      sendSock(agentData,callback);
+      sendSock(agentData);
     }, 1000);
   }
 }

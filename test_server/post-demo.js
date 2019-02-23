@@ -53,7 +53,7 @@ app.ws('/ws', function(ws, req) {
   ws.on('message', function(msg) {
     console.log('_message');
     console.log(msg);
-    ws.send('echo:' + msg);
+    // ws.send(JSON.stringify());
 
   });
 });
