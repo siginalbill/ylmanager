@@ -144,6 +144,7 @@
       // clearInterval(this.timer);
       // this.timer = null;
       // this.setTimer();
+
       // 建立websocket连接，添加token参数
       this.socketApi.initWebSocket("token="+getTokenCookie());
     },

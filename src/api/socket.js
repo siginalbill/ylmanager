@@ -2,12 +2,12 @@ var websock = null;
 var global_callback = null;
 var serverPort = '8082';	//webSocket连接端口
 
-
+// 获取ws地址
 function getWebIP(){
   return 'localhost';
 }
 
-//初始化weosocket
+// 初始化weosocket
 function initWebSocket(params){
   //ws地址
   var wsuri = "ws://" +getWebIP()+ ":" + serverPort + '/ws' + "?" + params;
@@ -29,8 +29,8 @@ function initWebSocket(params){
 }
 
 // 实际调用的方法 发送数据,回调方法
-function sendSock(agentData,callback){
-  global_callback = callback;
+function sendSock(agentData){
+  // global_callback = callback;
   if (websock.readyState === websock.OPEN) {
     //若是ws开启状态
     websocketsend(agentData)
@@ -47,18 +47,23 @@ function sendSock(agentData,callback){
   }
 }
 
-//数据接收
+// 设置数据接收回调函数
+function setCallback(callback) {
+  global_callback = callback;
+}
+
+// 数据接收
 function websocketonmessage(e){
   // console.log(global_callback);
   global_callback(e.data);
 }
 
-//数据发送
+// 数据发送
 function websocketsend(agentData){
   websock.send(JSON.stringify(agentData));
 }
 
-//关闭
+// 关闭
 function websocketclose(e){
   console.log("connection closed (" + e.code + ")");
 }
@@ -69,4 +74,4 @@ function websocketOpen(e){
 
 // initWebSocket();
 
-export{sendSock, initWebSocket}
+export{sendSock, initWebSocket, setCallback}

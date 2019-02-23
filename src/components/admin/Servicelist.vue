@@ -64,9 +64,11 @@
       }
     },
     created() {
-      this.fetchData()
+      // this.fetchData()
+      this.socketApi.setCallback(this.setSession);
     },
     methods: {
+      // http加载数据
       fetchData() {
         this.listLoading = true
         this.$axios.post("/admin/servicelist", {})
@@ -75,6 +77,13 @@
             this.listLoading = false
             }
           )
+      },
+      // websocket加载数据
+      setSession(data){
+        data = JSON.parse(data);
+        this.listLoading = true;
+        this.list = data.data.items;
+        this.listLoading = false;
       }
     }
   }
