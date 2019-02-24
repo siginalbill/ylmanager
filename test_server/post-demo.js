@@ -73,7 +73,9 @@ app.post('/login', bodyParser.json(), function (req, res) {
     }else  if (req.body.account == "service" && req.body.password=="123456"){
         var response = {
             "loginFlag":"success",
-            "userFlag":"service"
+            "userFlag":"service",
+            "userName":"卢客服",
+            "token":"34242354623"
         };
         console.log(response);
         res.end(JSON.stringify(response));
@@ -81,7 +83,8 @@ app.post('/login', bodyParser.json(), function (req, res) {
         var response = {
             "loginFlag":"success",
             "userFlag":"doctor",
-            "token":"3424234523"
+            "token":"3424234523",
+          "userName":"带医生",
         };
         console.log(response);
         res.end(JSON.stringify(response));
