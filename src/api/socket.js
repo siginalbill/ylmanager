@@ -1,5 +1,5 @@
 var websock = null;
-var global_callback = null;
+var global_callback = ()=>{};
 var serverPort = '8082';	//webSocket连接端口
 
 // 获取ws地址
