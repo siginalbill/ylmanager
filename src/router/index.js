@@ -14,7 +14,16 @@ import Changedoctor from '@/components/admin/Changedoctor'
 import Changeaccount from '@/components/admin/Changeaccount'
 import Serviceonlinelist from '@/components/admin/Serviceonlinelist'
 
-Vue.use(Router)
+// 客服组件
+import ChangeDoctor_s from '@/components/service/Changedoctor'
+import PostRecommendation from '@/components/service/PostRecommendation'
+import PostRegist from '@/components/service/PostRegist'
+import RegistOnLine from '@/components/service/RegistOnLine'
+import UploadLecture from '@/components/service/UploadLecture'
+import WebChatRegist from '@/components/service/WebChatRegist'
+import DoctorOnLine from '@/components/service/DoctorOnLine'
+
+Vue.use(Router);
 
 export default new Router({
   // 去除'/#'路径
@@ -38,7 +47,7 @@ export default new Router({
         isLogin:false
       }
     },
-    //管理员主界面
+    //管理员主界面 iconCls 见 http://fontawesome.dashgame.com/
     {
       path: '/admin', component:Admin, name: '账号管理', iconCls: 'fa fa-address-card',
           meta:{ isLogin:true, auth: 'admin'},
@@ -58,14 +67,27 @@ export default new Router({
     },
     // 客服主界面
     {
-      path: '/service',
-      component: Service,
-      name: '客服',
-      iconCls: 'fa fa-id-card-o',
-      meta:{
-        isLogin:true,
-        auth: 'service'
-      }
+      path: '/service', component:Service, name: '信息发布', iconCls: 'fa fa-edit',
+      meta:{ isLogin:true, auth: 'service'},
+      children:[
+        {path: '/service/upload_lecture', component: UploadLecture, name: '健康讲座上传', meta:{ isLogin:true, auth: 'service'}},
+        {path: '/service/upload_recommendation', component: PostRecommendation, name: '体检推荐发布', meta:{ isLogin:true, auth: 'service'}},
+        {path: '/service/change_doctor', component: ChangeDoctor_s, name: '医生信息录入', meta:{ isLogin:true, auth: 'service'}},
+      ]
+    },
+    { path: '/service', component: Service, name: '在线挂号', iconCls: 'fa fa-braille',
+      meta:{isLogin:true, auth: 'service'},
+      children:[
+        {path: '/service/regist_online', component: RegistOnLine, name: '挂号列表', meta:{ isLogin:true, auth: 'service'}},
+        {path: '/admin/post_regist', component: PostRegist, name: '挂号反馈', meta:{ isLogin:true, auth: 'service'}}
+      ]
+    },
+    { path: '/service', component: Service, name: '语音问诊调配', iconCls: 'fa fa-comments',
+      meta:{isLogin:true, auth: 'service'},
+      children:[
+        {path: '/service/service_list1', component: WebChatRegist, name: '等待调配列表', meta:{ isLogin:true, auth: 'service'}},
+        {path: '/service/service_list2', component: DoctorOnLine, name: '在线医生列表', meta:{ isLogin:true, auth: 'service'}}
+      ]
     },
     // 医生主界面
     {
