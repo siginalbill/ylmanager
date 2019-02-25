@@ -32,7 +32,7 @@
         <el-menu :default-active="$route.path" class="el-menu-vertical-demo" @open="handleopen" @close="handleclose" @select="handleselect"
                  unique-opened router v-show="!collapsed" style="width: 230px">
           <!--item.meta.auth==='service' 显示响应账号权限页面-->
-          <template v-for="(item,index) in $router.options.routes" v-if="!item.hidden && item.meta.auth==='service'">
+          <template v-for="(item,index) in $router.options.routes" v-if="!item.hidden && item.meta.auth===authType">
             <el-submenu :index="index+''" v-if="!item.leaf">
               <template slot="title"><i :class="item.iconCls"></i>{{item.name}}</template>
               <el-menu-item v-for="child in item.children" :index="child.path" :key="child.path" v-if="!child.hidden ">{{child.name}}</el-menu-item>
@@ -43,7 +43,7 @@
         <!--导航菜单-折叠后-->
         <ul class="el-menu el-menu-vertical-demo collapsed" v-show="collapsed" ref="menuCollapsed">
           <!-- 获取/service/下的路径-->
-          <li v-for="(item,index) in $router.options.routes" v-if="!item.hidden && item.meta.auth==='service'" class="el-submenu item">
+          <li v-for="(item,index) in $router.options.routes" v-if="!item.hidden && item.meta.auth===authType" class="el-submenu item">
             <template v-if="!item.leaf">
               <div class="el-submenu__title" style="padding-left: 20px;" @mouseover="showMenu(index,true)" @mouseout="showMenu(index,false)"><i :class="item.iconCls"></i></div>
               <ul class="el-menu submenu" :class="'submenu-hook-'+index" @mouseover="showMenu(index,true)" @mouseout="showMenu(index,false)">
@@ -93,6 +93,7 @@
         sysUserAvatar: img,
         // 定时器
         timer: null,
+        authType: 'service',
       }
     },
     methods: {
