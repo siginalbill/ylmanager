@@ -146,8 +146,9 @@
       // this.timer = null;
       // this.setTimer();
 
-      // 建立websocket连接，添加token参数
+      // 建立websocket连接，添加token参数, 清理callback
       this.socketApi.initWebSocket("token="+getTokenCookie());
+      this.socketApi.setCallback(()=>{ })
     },
     destroyed: function () {
       // 每次离开当前界面时，清除定时器
