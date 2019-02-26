@@ -40,17 +40,40 @@
     },
     methods: {
       onSubmit() {
-        this.$axios.post("/admin/addService", {account: this.form.account, name: this.form.name, pass: this.form.pass})
-          .then(data => {
-            if (data.data.status === 2000) {
-              this.$message('创建成功');
-            } else {
-              this.$message({
-                message: data.data.message,
-                type: 'error'
-              });
-            }
-          });
+        if (this.form.account != null && this.form.name != null && this.form.pass != null) {
+          this.$axios.post("/admin/addService", {account: this.form.account, name: this.form.name, pass: this.form.pass})
+            .then(data => {
+              if (data.data.status === 2000) {
+                this.$message('创建成功');
+                this.form = {};
+              } else {
+                // this.$message({
+                //   message: data.data.message,
+                //   type: 'error'
+                // });
+                this.openError(data.data.message);
+              }
+            }).catch(()=>{this.openError("系统错误");});
+        }else {
+          this.openWarn('输入不能为空');
+        }
+
+      },
+      openWarn(message) {
+        this.$alert(message, '警告', {
+          confirmButtonText: '确定',
+          callback: action => {
+            // 确认操作回调函数
+          }
+        });
+      },
+      openError(message) {
+        this.$alert(message, '错误', {
+          confirmButtonText: '确定',
+          callback: action => {
+            // 确认操作回调函数
+          }
+        });
       },
     onCancel() {
       this.$message({

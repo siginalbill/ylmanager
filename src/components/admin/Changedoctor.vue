@@ -17,25 +17,25 @@
         </el-col>
       </el-form-item>
 
-      <el-form-item label="上传图片(不能为空)">
-        <el-col :span="20">
-          <!--上传医生图片-->
-          <el-upload
-            class="upload-file"
-            drag
-            accept="image/png,image/gif.image/jpg,image/jpeg"
-            :limit=1
-            list-type="picture-card"
-            :action="doUpload()"
-            :before-upload="beforeUpload"
-            ref="newupload"
-            multiple
-            :auto-upload="false">
-            <i class="el-icon-upload"></i>
-            <!--<div class="el-upload__text">将文件拖到此处，或<em>点击上传</em>，不能为空</div>-->
-          </el-upload>
-        </el-col>
-      </el-form-item>
+      <!--<el-form-item label="上传图片(不能为空)">-->
+        <!--<el-col :span="20">-->
+          <!--&lt;!&ndash;上传医生图片&ndash;&gt;-->
+          <!--<el-upload-->
+            <!--class="upload-file"-->
+            <!--drag-->
+            <!--accept="image/png,image/gif.image/jpg,image/jpeg"-->
+            <!--:limit=1-->
+            <!--list-type="picture-card"-->
+            <!--:action="doUpload()"-->
+            <!--:before-upload="beforeUpload"-->
+            <!--ref="newupload"-->
+            <!--multiple-->
+            <!--:auto-upload="false">-->
+            <!--<i class="el-icon-upload"></i>-->
+            <!--&lt;!&ndash;<div class="el-upload__text">将文件拖到此处，或<em>点击上传</em>，不能为空</div>&ndash;&gt;-->
+          <!--</el-upload>-->
+        <!--</el-col>-->
+      <!--</el-form-item>-->
 
 
       <el-form-item label="医生科室">
@@ -67,18 +67,20 @@
     },
     methods: {
       onSubmit() {
-        this.$refs.newupload.submit();
-        // this.$axios.post("/admin/addDoctor", {account: this.form.account, name: this.form.name, pass: this.form.pass})
-        //   .then(data => {
-        //     if (data.data.status === 2000) {
-        //       this.$message('创建成功');
-        //     } else {
-        //       this.$message({
-        //         message: data.data.message,
-        //         type: 'error'
-        //       });
-        //     }
-        //   });
+        // this.$refs.newupload.submit();
+        if (this.form.account != null){
+          this.$axios.post("/admin/changeDoctor", {account: this.form.account, name: this.form.name, class: this.form.class, blief: this.form.blief})
+            .then(data => {
+              if (data.data.status === 2000) {
+                this.$message('修改成功');
+              } else {
+                this.openError(data.data.message);
+              }
+            }).catch(()=>{this.openError("系统错误");});
+        }else {
+          this.openWarn('输入不能为空');
+        }
+
       },
       onCancel() {
         this.$message({
@@ -105,7 +107,23 @@
       doUpload(){
         // 传一个无用url
         return "/useless";
-      }
+      },
+      openWarn(message) {
+        this.$alert(message, '警告', {
+          confirmButtonText: '确定',
+          callback: action => {
+            // 确认操作回调函数
+          }
+        });
+      },
+      openError(message) {
+        this.$alert(message, '错误', {
+          confirmButtonText: '确定',
+          callback: action => {
+            // 确认操作回调函数
+          }
+        });
+      },
     },
 
   }
