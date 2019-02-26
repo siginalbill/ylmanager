@@ -78,8 +78,8 @@ app.ws('/ws', function(ws, req) {
   }
   function cd2() {
     var response = {"code":2010 ,"data":{"items":[
-          {"id":"234252352345","acount":"123456", "name":"王倩", "others":Math.round(Math.random()*10)},
-          {"id":"252352522525","acount":"123457", "name":"ledkf", "others":Math.round(Math.random()*10)},
+          {"account":"123456", "name":"王倩", "others":Math.round(Math.random()*10)},
+          {"account":"123457", "name":"ledkf", "others":Math.round(Math.random()*10)},
         ]}};
     try {
       ws.send(JSON.stringify(response))
@@ -87,9 +87,9 @@ app.ws('/ws', function(ws, req) {
       ws.close();
     }
   }
-  var obj = setInterval(cd, 1000);
-  var obj1 = setInterval(cd1, 1000);
-  var obj2 = setInterval(cd2, 1000);
+  var obj = setInterval(cd, 10000);
+  var obj1 = setInterval(cd1, 10000);
+  var obj2 = setInterval(cd2, 10000);
 
   ws.on('message', function(msg) {
     console.log('_message');
@@ -150,6 +150,16 @@ app.post('/admin/addService', bodyParser.json(), function (req, res) {
   console.log(req.body);
   var response = {
       "status":2000
+  };
+  console.log(response);
+  res.end(JSON.stringify(response));
+  // 输出 JSON 格式
+});
+
+app.post('/service/setWebChat', bodyParser.json(), function (req, res) {
+  console.log(req.body);
+  var response = {
+    "status":2000
   };
   console.log(response);
   res.end(JSON.stringify(response));

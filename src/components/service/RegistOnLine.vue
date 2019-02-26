@@ -77,7 +77,6 @@
       this.socketApi.sendSock(JSON.stringify({type:"get", method:"getServiceList",token:this.cookieApi.getTokenCookie()}))
     },
     methods: {
-      // http加载数据
       postRegist(row) {
         // console.log(JSON.parse(this.userApi.getUserCookie()))
         this.$axios.post("/service/ownRegist", {id: row.id, user_account: row.account, service_account: JSON.parse(this.userApi.getUserCookie()).userAccount})

@@ -8,29 +8,15 @@
       border
       fit
       highlight-current-row>
-      <el-table-column align="center" label="工号">
-        <template slot-scope="scope">
-          {{ scope.row.acount }}
-        </template>
-      </el-table-column>
+
       <el-table-column label="姓名"  align="center">
         <template slot-scope="scope">
           {{ scope.row.name }}
         </template>
       </el-table-column>
-      <el-table-column label="处理挂号单数"  align="center">
+      <el-table-column label="科室"  align="center">
         <template slot-scope="scope">
-          <span>{{ scope.row.registersNum }}</span>
-        </template>
-      </el-table-column>
-      <el-table-column label="上传讲座数"  align="center">
-        <template slot-scope="scope">
-          {{ scope.row.lecturesNum }}
-        </template>
-      </el-table-column>
-      <el-table-column label="上传体检推荐数"  align="center">
-        <template slot-scope="scope">
-          {{ scope.row.recommendNum }}
+          <span>{{ scope.row.class }}</span>
         </template>
       </el-table-column>
     </el-table>
@@ -67,21 +53,14 @@
       // websocket加载数据渲染列表
       setSession(data){
         data = JSON.parse(data);
-        if (data.code === 2007) {
+        if (data.code === 2009) {
           this.listLoading = true;
           this.list = data.data.items;
+          sessionStorage.setItem("doctorOnline", JSON.stringify(this.list));
           this.listLoading = false;
           // 确认收到
-          this.socketApi.sendSock(JSON.stringify({"code":2007,"message":"客户端调试信息"}));
-        }else if (data.code === 2005) {
-          // 接收主动请求数据
-          this.listLoading = true;
-          this.list = data.data.items;
-          this.listLoading = false;
-          // 确认收到
-          this.socketApi.sendSock(JSON.stringify({"code":2005,"message":"客户端调试信息"}));
+          this.socketApi.sendSock(JSON.stringify({"code":2009,"message":"客户端调试信息"}));
         }
-
       }
     }
   }

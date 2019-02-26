@@ -24,6 +24,11 @@ import UploadTextLecture from '@/components/service/UploadTextLecture'
 import WebChatRegist from '@/components/service/WebChatRegist'
 import DoctorOnLine from '@/components/service/DoctorOnLine'
 
+// 医生组件
+import UserList from '@/components/doctor/UserList'
+import PostReport from '@/components/doctor/PostReport'
+
+
 Vue.use(Router);
 
 export default new Router({
@@ -92,15 +97,12 @@ export default new Router({
       ]
     },
     // 医生主界面
-    {
-      path: '/Doctor',
-      component: Doctor,
-      name: '医生',
-      iconCls: 'fa fa-id-card-o',
-      meta:{
-        isLogin:true,
-        auth: 'doctor'
-      }
+    { path: '/doctor', component: Doctor, name: '上传健康报告', iconCls: 'fa fa-edit',
+      meta:{isLogin:true, auth: 'doctor'},
+      children:[
+        {path: '/doctor/user_list', component: UserList, name: '用户列表', meta:{ isLogin:true, auth: 'doctor'}},
+        {path: '/doctor/post_report', component: PostReport, name: '报告编辑', meta:{ isLogin:true, auth: 'doctor'}}
+      ]
     },
     // // 添加账户
     // {
