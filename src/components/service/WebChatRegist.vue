@@ -28,7 +28,7 @@
         <template slot-scope="scope">
           <el-select v-model="scope.row.doctorAccount" placeholder="请选择在线医生">
             <!--用:注明变量为v-for-->
-            <el-option v-for="doctor in doctorList"  :label="doctor.name" :value="doctor.account"></el-option>
+            <el-option v-for="doctor in doctorList"  :label="doctor.name" :value="doctor.account" :key="doctor.account"></el-option>
           </el-select>
         </template>
       </el-table-column>
