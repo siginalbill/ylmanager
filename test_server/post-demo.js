@@ -22,10 +22,12 @@ app.all('*', function(req, res, next) {
     next();
 });
 
+// websocket
 app.ws('/ws', function(ws, req) {
   // util.inspect(ws);
   console.log(ws.token);
-  function cd() {
+  // admin
+  function cd11() {
     var response = {"code":2004 ,"data":{"items":[
           {"acount":"123456", "name":"王倩", "registersNum":Math.round(Math.random()*10), "lecturesNum":1, "recommendNum":1},
           {"acount":"123457", "name":"李本伟", "registersNum":Math.round(Math.random()*10), "lecturesNum":1, "recommendNum":1}
@@ -33,10 +35,10 @@ app.ws('/ws', function(ws, req) {
     try {
       ws.send(JSON.stringify(response))
     }catch (e) {
-      console.log(e)
+      ws.close();
     }
   }
-  function cd1() {
+  function cd111() {
     var response = {"code":2007 ,"data":{"items":[
           {"acount":"123456", "name":"王倩", "registersNum":Math.round(Math.random()*10), "lecturesNum":1, "recommendNum":1},
           {"acount":"123457", "name":"李本伟", "registersNum":Math.round(Math.random()*10), "lecturesNum":1, "recommendNum":1}
@@ -44,11 +46,50 @@ app.ws('/ws', function(ws, req) {
     try {
       ws.send(JSON.stringify(response))
     }catch (e) {
-      console.log(e)
+      ws.close();
+    }
+  }
+  var obj11 = setInterval(cd11, 1000);
+  var obj11 = setInterval(cd111, 1000);
+
+  // service 挂号列表 在线医生 用户列表
+  // 2008 2009 2010
+  function cd() {
+    var response = {"code":2008 ,"data":{"items":[
+          {"id":"234252352345","account":"123456", "name":"王倩", "class":"肛肠科", "others":Math.round(Math.random()*10)},
+          {"id":"252352522525","account":"123457", "name":"ledkf", "class":"肛肠科", "others":Math.round(Math.random()*10)},
+        ]}};
+    try {
+      ws.send(JSON.stringify(response))
+    }catch (e) {
+      ws.close();
+    }
+  }
+  function cd1() {
+    var response = {"code":2009 ,"data":{"items":[
+          {"account":"123456", "name":"王倩", "class":"肛肠科"},
+          {"account":"123457", "name":"李本伟", "class":"肛肠科"}
+        ]}};
+    try {
+      ws.send(JSON.stringify(response))
+    }catch (e) {
+      ws.close();
+    }
+  }
+  function cd2() {
+    var response = {"code":2010 ,"data":{"items":[
+          {"id":"234252352345","acount":"123456", "name":"王倩", "others":Math.round(Math.random()*10)},
+          {"id":"252352522525","acount":"123457", "name":"ledkf", "others":Math.round(Math.random()*10)},
+        ]}};
+    try {
+      ws.send(JSON.stringify(response))
+    }catch (e) {
+      ws.close();
     }
   }
   var obj = setInterval(cd, 1000);
   var obj1 = setInterval(cd1, 1000);
+  var obj2 = setInterval(cd2, 1000);
 
   ws.on('message', function(msg) {
     console.log('_message');
@@ -57,6 +98,8 @@ app.ws('/ws', function(ws, req) {
 
   });
 });
+
+
 
 app.post('/login', bodyParser.json(), function (req, res) {
     console.log(req.body);
@@ -101,10 +144,32 @@ app.post('/login', bodyParser.json(), function (req, res) {
 
 });
 
+
+// 一些普通的http接口
 app.post('/admin/addService', bodyParser.json(), function (req, res) {
   console.log(req.body);
   var response = {
       "status":2000
+  };
+  console.log(response);
+  res.end(JSON.stringify(response));
+  // 输出 JSON 格式
+});
+
+app.post('/service/ownRegist', bodyParser.json(), function (req, res) {
+  console.log(req.body);
+  var response = {
+    "status":2000
+  };
+  console.log(response);
+  res.end(JSON.stringify(response));
+  // 输出 JSON 格式
+});
+
+app.post('/service/uploadLecturetext', bodyParser.json(), function (req, res) {
+  console.log(req.body);
+  var response = {
+    "status":2000
   };
   console.log(response);
   res.end(JSON.stringify(response));
@@ -128,7 +193,19 @@ app.post('/admin/changeDoctor', (req, res)=>{
   console.log(req.body);//获取到的age和name
   console.log(req.file);//获取到的文件
   //做些其他事情
-})
+});
+app.post('/service/uploadLecturevideo', (req, res)=>{
+  console.log(req.headers.cookie);
+  console.log(req.body);//获取到的age和name
+  console.log(req.file);//获取到的文件
+  //做些其他事情
+});
+app.post('/service/uploadLectureaudio', (req, res)=>{
+  console.log(req.headers.cookie);
+  console.log(req.body);//获取到的age和name
+  console.log(req.file);//获取到的文件
+  //做些其他事情
+});
 
 var server = app.listen(8082, function () {
 

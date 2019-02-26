@@ -20,6 +20,7 @@ import PostRecommendation from '@/components/service/PostRecommendation'
 import PostRegist from '@/components/service/PostRegist'
 import RegistOnLine from '@/components/service/RegistOnLine'
 import UploadLecture from '@/components/service/UploadLecture'
+import UploadTextLecture from '@/components/service/UploadTextLecture'
 import WebChatRegist from '@/components/service/WebChatRegist'
 import DoctorOnLine from '@/components/service/DoctorOnLine'
 
@@ -70,7 +71,8 @@ export default new Router({
       path: '/service', component:Service, name: '信息发布', iconCls: 'fa fa-edit',
       meta:{ isLogin:true, auth: 'service'},
       children:[
-        {path: '/service/upload_lecture', component: UploadLecture, name: '健康讲座上传', meta:{ isLogin:true, auth: 'service'}},
+        {path: '/service/upload_lecture', component: UploadLecture, name: '音视频讲座上传', meta:{ isLogin:true, auth: 'service'}},
+        {path: '/service/upload_tlecture', component: UploadTextLecture, name: '文字讲座上传', meta:{ isLogin:true, auth: 'service'}},
         {path: '/service/upload_recommendation', component: PostRecommendation, name: '体检推荐发布', meta:{ isLogin:true, auth: 'service'}},
         {path: '/service/change_doctor', component: ChangeDoctor_s, name: '医生信息录入', meta:{ isLogin:true, auth: 'service'}},
       ]

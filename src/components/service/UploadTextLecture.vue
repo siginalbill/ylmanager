@@ -43,7 +43,7 @@
     },
     methods: {
       onSubmit() {
-        this.$axios.post("/service/postRecommendation", {title: this.form.title, blief: this.form.blief, text: this.form.text})
+        this.$axios.post("/service/uploadLecturetext", {title: this.form.title, blief: this.form.blief, text: this.form.text})
           .then(data => {
             if (data.data.status === 2000) {
               this.$message('创建成功');
