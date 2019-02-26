@@ -166,6 +166,31 @@ app.post('/service/ownRegist', bodyParser.json(), function (req, res) {
   // 输出 JSON 格式
 });
 
+app.post('/service/getRegist', bodyParser.json(), function (req, res) {
+  console.log(req.body);
+  var response = {
+    "status":2000,
+    id:243443, // 交易单号
+    userName:"卢本伟",
+    userAccount:"423",
+    class:"肛肠科",
+    others:"togn"
+  };
+  console.log(response);
+  res.end(JSON.stringify(response));
+  // 输出 JSON 格式
+});
+
+app.post('/service/postRegist', bodyParser.json(), function (req, res) {
+  console.log(req.body);
+  var response = {
+    "status":2000
+  };
+  console.log(response);
+  res.end(JSON.stringify(response));
+  // 输出 JSON 格式
+});
+
 app.post('/service/uploadLecturetext', bodyParser.json(), function (req, res) {
   console.log(req.body);
   var response = {

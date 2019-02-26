@@ -79,7 +79,7 @@
     methods: {
       // http加载数据
       postRegist(row) {
-        console.log(JSON.parse(this.userApi.getUserCookie()))
+        // console.log(JSON.parse(this.userApi.getUserCookie()))
         this.$axios.post("/service/ownRegist", {id: row.id, user_account: row.account, service_account: JSON.parse(this.userApi.getUserCookie()).userAccount})
           .then(data => {
             if (data.data.status === 2000) {
