@@ -17,7 +17,7 @@ function setTokenCookie(token) {
   var exdate = new Date(); //获取时间
   exdate.setTime(exdate.getTime() + 24 * 60 * 60 * 1000 * 1); //保存的天数 1
   //字符串拼接cookie
-  console.log(token.toString())
+  // console.log(token.toString())
   window.document.cookie = "token" + "=" + token.toString() + ";path=/;expires=" + exdate.toGMTString();
 }
 

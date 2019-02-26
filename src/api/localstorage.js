@@ -26,7 +26,7 @@ function setUserCookie(c_account, c_pwd, exdays, remeberFlag) {
   // window.document.cookie = "u_info" + "=" + "userAccount|"+c_account+"|"+"userPass|"+c_pwd+"|"+
   //   "remeberFlag|"+remeberFlag + ";path=/;expires=" + exdate.toGMTString();
   // 对象转字符串
-  console.log(JSON.stringify({userAccount:c_account,userPass:c_pwd, remeberFlag:remeberFlag, expires:exdate.toGMTString()}));
+  // console.log(JSON.stringify({userAccount:c_account,userPass:c_pwd, remeberFlag:remeberFlag, expires:exdate.toGMTString()}));
   localStorage.setItem("u_info",JSON.stringify({userAccount:c_account,userPass:c_pwd, remeberFlag:remeberFlag, expires:exdate.toGMTString()}));
 }
 
