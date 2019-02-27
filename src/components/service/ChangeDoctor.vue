@@ -68,17 +68,18 @@
     methods: {
       onSubmit() {
         // this.$refs.newupload.submit();
-        this.$axios.post("/service/changeDoctor", {account: this.form.account, name: this.form.name, class: this.form.class, blief: this.form.blief})
-          .then(data => {
-            if (data.data.status === 2000) {
-              this.$message('上传成功');
-            } else {
-              this.$message({
-                message: data.data.message,
-                type: 'error'
-              });
-            }
-          });
+        if (this.form.account != null && this.form.name!=null && this.form.class != null && this.form.blief != null){
+          this.$axios.post("/admin/changeDoctor", {account: this.form.account, name: this.form.name, class: this.form.class, blief: this.form.blief})
+            .then(data => {
+              if (data.data.status === 2000) {
+                this.$message('修改成功');
+              } else {
+                this.openError(data.data.message);
+              }
+            }).catch(()=>{this.openError("系统错误");});
+        }else {
+          this.openWarn('输入不能为空');
+        }
       },
       onCancel() {
         this.$message({
@@ -105,7 +106,23 @@
       doUpload(){
         // 传一个无用url
         return "/useless";
-      }
+      },
+      openWarn(message) {
+        this.$alert(message, '警告', {
+          confirmButtonText: '确定',
+          callback: action => {
+            // 确认操作回调函数
+          }
+        });
+      },
+      openError(message) {
+        this.$alert(message, '错误', {
+          confirmButtonText: '确定',
+          callback: action => {
+            // 确认操作回调函数
+          }
+        });
+      },
     },
 
   }

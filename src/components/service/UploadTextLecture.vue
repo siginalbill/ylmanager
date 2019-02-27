@@ -43,18 +43,20 @@
     },
     methods: {
       onSubmit() {
-        this.$axios.post("/service/uploadLecturetext", {title: this.form.title, blief: this.form.blief, text: this.form.text})
-          .then(data => {
-            if (data.data.status === 2000) {
-              this.$message('创建成功');
-              this.form = { }
-            } else {
-              this.$message({
-                message: data.data.message,
-                type: 'error'
-              });
-            }
-          });
+        if (this.form.title!=null && this.form.blief != null && this.form.text != null) {
+          this.$axios.post("/service/uploadLecturetext", {title: this.form.title, blief: this.form.blief, text: this.form.text})
+            .then(data => {
+              if (data.data.status === 2000) {
+                this.$message('创建成功');
+                this.form = { }
+              } else {
+                this.openError(data.data.message);
+              }
+            }).catch(()=>{this.openError("系统错误");});
+        }else{
+          this.openWarn("不能为空")
+        }
+
       },
       onCancel() {
         this.$message({
@@ -62,7 +64,23 @@
           type: 'warning'
         });
         this.form = {};
-      }
+      },
+      openWarn(message) {
+        this.$alert(message, '警告', {
+          confirmButtonText: '确定',
+          callback: action => {
+            // 确认操作回调函数
+          }
+        });
+      },
+      openError(message) {
+        this.$alert(message, '错误', {
+          confirmButtonText: '确定',
+          callback: action => {
+            // 确认操作回调函数
+          }
+        });
+      },
     }
   }
 </script>

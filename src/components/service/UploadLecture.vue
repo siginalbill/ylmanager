@@ -89,20 +89,27 @@
         this.form = {};
       },
       beforeUpload(file){
-        let fd = new FormData();
-        fd.append('file',file);//传文件
-        fd.append('title',this.form.title);//传其他参数
-        if (this.form.type === 1){
-          // 视频
-          this.$axios.post('/service/uploadLecturevideo',fd).then(function(res){
-
-          })
-        }else if (this.form.type === 2) {
-          this.$axios.post('/service/uploadLectureaudio',fd).then(function(res){
-
-          })
+        if (file!=null && this.form.title!=null){
+          let fd = new FormData();
+          fd.append('file',file);//传文件
+          fd.append('title',this.form.title);//传其他参数
+          if (this.form.type === 1){
+            // 视频
+            this.$axios.post('/service/uploadLecturevideo',fd).then(function(res){
+              this.openWarn("上传成功");
+            }).catch(
+              // (e)=>{this.openError(e.toString());}
+              );
+          }else if (this.form.type === 2) {
+            this.$axios.post('/service/uploadLectureaudio',fd).then(function(res){
+            this.openWarn("上传成功");
+            }).catch(
+              // (e)=>{this.openError(e.toString());}
+              );
+          }
+        } else {
+          this.openWarn("不能为空");
         }
-
 
       },
       newSubmitForm(){
@@ -117,6 +124,22 @@
       uploadVideoProcess (event, file, fileList) {
         this.videoFlag = true;
         this.videoUploadPercent = file.percentage.toFixed(0) * 1;
+      },
+      openWarn(message) {
+        this.$alert(message, '消息', {
+          confirmButtonText: '确定',
+          callback: action => {
+            // 确认操作回调函数
+          }
+        });
+      },
+      openError(message) {
+        this.$alert(message, '错误', {
+          confirmButtonText: '确定',
+          callback: action => {
+            // 确认操作回调函数
+          }
+        });
       },
     },
 

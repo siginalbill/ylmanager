@@ -166,6 +166,16 @@ app.post('/service/setWebChat', bodyParser.json(), function (req, res) {
   // 输出 JSON 格式
 });
 
+app.post('/doctor/postReport', bodyParser.json(), function (req, res) {
+  console.log(req.body);
+  var response = {
+    "status":2000
+  };
+  console.log(response);
+  res.end(JSON.stringify(response));
+  // 输出 JSON 格式
+});
+
 app.post('/service/ownRegist', bodyParser.json(), function (req, res) {
   console.log(req.body);
   var response = {

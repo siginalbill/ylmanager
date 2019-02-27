@@ -74,7 +74,7 @@
       // this.fetchData()
       this.socketApi.setCallback(this.setSession);
       // 主动请求数据
-      this.socketApi.sendSock(JSON.stringify({type:"get", method:"getServiceList",token:this.cookieApi.getTokenCookie()}))
+      this.socketApi.sendSock(JSON.stringify({type:"get", method:"getRegistList",token:this.cookieApi.getTokenCookie()}))
     },
     methods: {
       postRegist(row) {
@@ -82,12 +82,9 @@
         this.$axios.post("/service/ownRegist", {id: row.id, user_account: row.account, service_account: JSON.parse(this.userApi.getUserCookie()).userAccount})
           .then(data => {
             if (data.data.status === 2000) {
-              this.$message('上传成功');
+              this.openWarn('接单成功');
             } else {
-              this.$message({
-                message: data.data.message,
-                type: 'error'
-              });
+              this.openError(data.data.message)
             }
           });
       },
@@ -100,15 +97,24 @@
           this.listLoading = false;
           // 确认收到
           this.socketApi.sendSock(JSON.stringify({"code":2008,"message":"客户端调试信息"}));
-        }else if (data.code === 2011) {
-          // 接收主动请求数据
-          this.listLoading = true;
-          this.list = data.data.items;
-          this.listLoading = false;
-          // 确认收到
-          this.socketApi.sendSock(JSON.stringify({"code":2011,"message":"客户端调试信息"}));
         }
-      }
+      },
+      openWarn(message) {
+        this.$alert(message, '消息', {
+          confirmButtonText: '确定',
+          callback: action => {
+            // 确认操作回调函数
+          }
+        });
+      },
+      openError(message) {
+        this.$alert(message, '错误', {
+          confirmButtonText: '确定',
+          callback: action => {
+            // 确认操作回调函数
+          }
+        });
+      },
     }
   }
 </script>

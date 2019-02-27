@@ -47,7 +47,7 @@
       // this.fetchData()
       this.socketApi.setCallback(this.setSession);
       // 主动请求数据
-      this.socketApi.sendSock(JSON.stringify({type:"get", method:"getServiceOnLineList",token:this.cookieApi.getTokenCookie()}))
+      this.socketApi.sendSock(JSON.stringify({type:"get", method:"getDoctorList",token:this.cookieApi.getTokenCookie()}))
     },
     methods: {
       // websocket加载数据渲染列表

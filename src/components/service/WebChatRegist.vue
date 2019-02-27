@@ -28,7 +28,7 @@
         <template slot-scope="scope">
           <el-select v-model="scope.row.doctorAccount" placeholder="请选择在线医生">
             <!--用:注明变量为v-for-->
-            <el-option v-for="doctor in doctorList"  :label="doctor.name" :value="doctor.account" :key="doctor.account"></el-option>
+            <el-option v-for="doctor in doctorList"  :label="doctor.name" :value="doctor.account" :key="doctor.name"></el-option>
           </el-select>
         </template>
       </el-table-column>
@@ -68,7 +68,8 @@
       // this.fetchData()
       this.socketApi.setCallback(this.setSession);
       // 主动请求数据
-      this.socketApi.sendSock(JSON.stringify({type:"get", method:"getServiceOnLineList",token:this.cookieApi.getTokenCookie()}))
+      this.socketApi.sendSock(JSON.stringify({type:"get", method:"getDoctorList",token:this.cookieApi.getTokenCookie()}))
+      this.socketApi.sendSock(JSON.stringify({type:"get", method:"getWaitList",token:this.cookieApi.getTokenCookie()}))
     },
     methods: {
       // websocket加载数据渲染列表
@@ -90,17 +91,35 @@
       },
       postRegist(row) {
         // console.log(JSON.parse(this.userApi.getUserCookie()))
-        this.$axios.post("/service/setWebChat", { userAccount: row.account, doctorAccount: row.doctorAccount})
-          .then(data => {
-            if (data.data.status === 2000) {
-              this.$message('上传成功');
-            } else {
-              this.$message({
-                message: data.data.message,
-                type: 'error'
-              });
-            }
-          });
+        if(row.doctorAccount!=null){
+          this.$axios.post("/service/setWebChat", { userAccount: row.account, doctorAccount: row.doctorAccount})
+            .then(data => {
+              if (data.data.status === 2000) {
+                this.openWarn('调度成功');
+              } else {
+                this.openError(data.data.message);
+              }
+            }).catch(()=>{this.openError("系统错误");});
+        }else {
+          this.openWarn("请选择医生")
+        }
+
+      },
+      openWarn(message) {
+        this.$alert(message, '消息', {
+          confirmButtonText: '确定',
+          callback: action => {
+            // 确认操作回调函数
+          }
+        });
+      },
+      openError(message) {
+        this.$alert(message, '错误', {
+          confirmButtonText: '确定',
+          callback: action => {
+            // 确认操作回调函数
+          }
+        });
       },
     }
   }

@@ -87,17 +87,22 @@
     methods: {
       onSubmit() {
         // this.$refs.newupload.submit();
-        this.$axios.post("/service/postRegist", {id: this.regist.id, result: this.form.text})
-          .then(data => {
-            if (data.data.status === 2000) {
-              this.$message('上传成功');
-            } else {
-              this.$message({
-                message: data.data.message,
-                type: 'error'
-              });
-            }
-          });
+        if(this.regist.id!=null && this.form.text!=null){
+          this.$axios.post("/service/postRegist", {id: this.regist.id, result: this.form.text})
+            .then(data => {
+              if (data.data.status === 2000) {
+                this.$message('上传成功');
+              } else {
+                this.$message({
+                  message: data.data.message,
+                  type: 'error'
+                });
+              }
+            });
+        }else{
+          this.openWarn("不能为空")
+        }
+
       },
       onCancel() {
         this.$message({
@@ -105,6 +110,22 @@
           type: 'warning'
         });
         this.form = {};
+      },
+      openWarn(message) {
+        this.$alert(message, '消息', {
+          confirmButtonText: '确定',
+          callback: action => {
+            // 确认操作回调函数
+          }
+        });
+      },
+      openError(message) {
+        this.$alert(message, '错误', {
+          confirmButtonText: '确定',
+          callback: action => {
+            // 确认操作回调函数
+          }
+        });
       },
     },
 
