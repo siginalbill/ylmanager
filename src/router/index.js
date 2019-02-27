@@ -33,8 +33,8 @@ import WebChat from '@/components/doctor/WebChat'
 Vue.use(Router);
 
 export default new Router({
-  // 去除'/#'路径
-  mode: 'history',
+  // 去除'/#'路径 但是会导致打包问题
+  // mode: 'history',
   routes: [
     // 其他
     {

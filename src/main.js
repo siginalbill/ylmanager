@@ -45,7 +45,7 @@ import 'font-awesome/css/font-awesome.min.css'
 
 // 引入websocket
 import * as socketApi from './api/socket'
-Vue.prototype.socketApi = socketApi
+Vue.prototype.socketApi = socketApi;
 
 Vue.config.productionTip = false;
 
