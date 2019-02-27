@@ -101,7 +101,7 @@
         console.log('submit!');
       },
       handleopen() {
-        this.socketApi.sendSock('ack', (e) => {console.log(e)});
+        // this.socketApi.sendSock('ack', (e) => {console.log(e)});
         //console.log('handleopen');
       },
       handleclose() {

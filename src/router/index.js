@@ -27,6 +27,7 @@ import DoctorOnLine from '@/components/service/DoctorOnLine'
 // 医生组件
 import UserList from '@/components/doctor/UserList'
 import PostReport from '@/components/doctor/PostReport'
+import WebChat from '@/components/doctor/WebChat'
 
 
 Vue.use(Router);
@@ -38,8 +39,8 @@ export default new Router({
     // 其他
     {
       path: '/',
-      name: 'Welcome',
-      component: Welcome,
+      name: '请登录',
+      component: Login,
       meta:{
         isLogin:false
       }
@@ -102,6 +103,12 @@ export default new Router({
       children:[
         {path: '/doctor/user_list', component: UserList, name: '用户列表', meta:{ isLogin:true, auth: 'doctor'}},
         {path: '/doctor/post_report', component: PostReport, name: '报告编辑', meta:{ isLogin:true, auth: 'doctor'}}
+      ]
+    },
+    { path: '/doctor', component: Doctor, name: '语音问诊', iconCls: 'fa fa-comments',
+      meta:{isLogin:true, auth: 'doctor'},
+      children:[
+        {path: '/doctor/webchat/', component: WebChat, name: '在线语音', meta:{ isLogin:true, auth: 'doctor'}}
       ]
     },
     // // 添加账户

@@ -101,11 +101,38 @@
         console.log('submit!');
       },
       handleopen() {
-        this.socketApi.sendSock('ack', (e) => {console.log(e)});
+        // this.socketApi.sendSock('ack', (e) => {console.log(e)});
         //console.log('handleopen');
       },
       handleclose() {
         //console.log('handleclose');
+      },
+      onCall(data){
+        data = JSON.parse(data);
+        if (data.code === 2011) {
+          this.socketApi.sendSock({code:2011, message:"调试"});
+          // 打开对话框并跳转
+            this.openBox(data.roomid);
+        }
+      },
+      openBox(id) {
+        this.$confirm('有新用户问诊, 是否接听?', '提示', {
+          confirmButtonText: '接听',
+          cancelButtonText: '拒绝',
+          type: 'warning'
+        }).then(() => {
+          this.$message({
+            type: 'success',
+            message: '接听成功!'
+          });
+          this.$router.push({path: '/doctor/webchat/',query:{"id":id}});
+        }).catch(() => {
+          this.socketApi.sendSock({code:2013, message:"客户端拒绝接听"});
+          this.$message({
+            type: 'info',
+            message: '已取消接听'
+          });
+        });
       },
       handleselect: function (a, b) {
       },
@@ -148,6 +175,7 @@
 
       // 建立websocket连接，添加token参数
       this.socketApi.initWebSocket("token="+getTokenCookie());
+      this.socketApi.setCallback(this.onCall);
     },
     destroyed: function () {
       // 每次离开当前界面时，清除定时器
@@ -163,8 +191,7 @@
         // this.sysUserAvatar = user.avatar || '';
       }
 
-    }
-
+    },
   }
 
 </script>
