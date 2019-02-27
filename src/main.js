@@ -17,6 +17,7 @@ import axios from 'axios'
 // axios 配置
 axios.defaults.timeout = 5000;
 axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=UTF-8';
+// 用于解决跨域问题，配置在config下的index.js
 axios.defaults.baseURL = '/api';
 // http request 拦截器，通过这个，我们就可以把Cookie传到后台
 // axios.interceptors.request.use(
