@@ -68,8 +68,8 @@
       // this.fetchData()
       this.socketApi.setCallback(this.setSession);
       // 主动请求数据
-      this.socketApi.sendSock(JSON.stringify({type:"get", method:"getDoctorList",token:this.cookieApi.getTokenCookie()}))
-      this.socketApi.sendSock(JSON.stringify({type:"get", method:"getWaitList",token:this.cookieApi.getTokenCookie()}))
+      this.socketApi.sendSock({type:"get", method:"getDoctorList",token:this.cookieApi.getTokenCookie()});
+      this.socketApi.sendSock({type:"get", method:"getWaitList",token:this.cookieApi.getTokenCookie()});
     },
     methods: {
       // websocket加载数据渲染列表
@@ -79,14 +79,14 @@
           // 获取在线医生
           this.doctorList = data.data.items;
           // 确认收到
-          this.socketApi.sendSock(JSON.stringify({"code":2009,"message":"客户端调试信息"}));
+          this.socketApi.sendSock({"code":2009,"message":"客户端调试信息"});
         }else if(data.code === 2010) {
           // 获取到问诊用户
           this.listLoading = true;
           this.list = data.data.items;
           this.listLoading = false;
           // 确认收到
-          this.socketApi.sendSock(JSON.stringify({"code":2010,"message":"客户端调试信息"}));
+          this.socketApi.sendSock({"code":2010,"message":"客户端调试信息"});
         }
       },
       postRegist(row) {

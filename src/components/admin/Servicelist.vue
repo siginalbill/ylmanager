@@ -72,7 +72,7 @@
       // this.fetchData()
       this.socketApi.setCallback(this.setSession);
       // 主动请求数据
-      this.socketApi.sendSock(JSON.stringify({type:"get", method:"getServiceList",token:this.cookieApi.getTokenCookie()}))
+      this.socketApi.sendSock({type:"get", method:"getServiceList",token:this.cookieApi.getTokenCookie()});
     },
     methods: {
       // http加载数据
@@ -93,14 +93,7 @@
           this.list = data.data.items;
           this.listLoading = false;
           // 确认收到
-          this.socketApi.sendSock(JSON.stringify({"code":2004,"message":"客户端调试信息"}));
-        }else if (data.code === 2002) {
-          // 接收主动请求数据
-          this.listLoading = true;
-          this.list = data.data.items;
-          this.listLoading = false;
-          // 确认收到
-          this.socketApi.sendSock(JSON.stringify({"code":2005,"message":"客户端调试信息"}));
+          this.socketApi.sendSock({"code":2004,"message":"客户端调试信息"});
         }
       }
     }

@@ -49,8 +49,8 @@ app.ws('/ws', function(ws, req) {
       ws.close();
     }
   }
-  var obj11 = setInterval(cd11, 1000);
-  var obj11 = setInterval(cd111, 1000);
+  var obj11 = setInterval(cd11, 10000);
+  var obj11 = setInterval(cd111, 10000);
 
   // service 挂号列表 在线医生 用户列表
   // 2008 2009 2010
@@ -87,7 +87,7 @@ app.ws('/ws', function(ws, req) {
       ws.close();
     }
   }
-  var obj = setInterval(cd, 10000);
+  // var obj = setInterval(cd, 10000);
   var obj1 = setInterval(cd1, 10000);
   var obj2 = setInterval(cd2, 10000);
 
@@ -95,6 +95,26 @@ app.ws('/ws', function(ws, req) {
     console.log('_message');
     console.log(msg);
     // ws.send(JSON.stringify());
+    console.log(typeof (msg))
+    var jsonObj = eval('('+msg+')');
+    for (var prop in jsonObj)
+    {
+      //输出 key-value值
+      console.log("jsonObj[" + prop + "]=" + jsonObj[prop]);
+    }
+
+    if(msg.method === "getRegistList"){
+      console.log("get request");
+      var response = {"code":2008 ,"data":{"items":[
+            {"id":"234252352345","account":"123456", "name":"王倩", "class":"肛肠科", "others":Math.round(Math.random()*10)},
+            {"id":"252352522525","account":"123457", "name":"ledkf", "class":"肛肠科", "others":Math.round(Math.random()*10)},
+          ]}};
+      try {
+        ws.send(JSON.stringify(response))
+      }catch (e) {
+        ws.close();
+      }
+    }
 
   });
 });

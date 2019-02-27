@@ -47,7 +47,7 @@
       // this.fetchData()
       this.socketApi.setCallback(this.setSession);
       // 主动请求数据
-      this.socketApi.sendSock(JSON.stringify({type:"get", method:"getDoctorList",token:this.cookieApi.getTokenCookie()}))
+      this.socketApi.sendSock({type:"get", method:"getDoctorList",token:this.cookieApi.getTokenCookie()})
     },
     methods: {
       // websocket加载数据渲染列表
@@ -59,7 +59,7 @@
           sessionStorage.setItem("doctorOnline", JSON.stringify(this.list));
           this.listLoading = false;
           // 确认收到
-          this.socketApi.sendSock(JSON.stringify({"code":2009,"message":"客户端调试信息"}));
+          this.socketApi.sendSock({"code":2009,"message":"客户端调试信息"});
         }
       }
     }
