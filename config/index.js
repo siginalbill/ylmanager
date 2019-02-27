@@ -13,7 +13,10 @@ module.exports = {
     proxyTable: {
       // 解决跨域问题
       '/api': {
-        target: 'http://localhost:8082', //这里面是你要访问的IP地址
+        // 这里面是测试环境地址
+        target: 'http://localhost:8082',
+        // 这里面是生产环境地址，未确定
+        // target: 'http://localhost:8082',
         changeOrigin: true,     //开启代理
         pathRewrite: {
           '^/api': '/'
