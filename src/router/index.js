@@ -13,6 +13,7 @@ import Adddoctor from '@/components/admin/Adddoctor'
 import Changedoctor from '@/components/admin/Changedoctor'
 import Changeaccount from '@/components/admin/Changeaccount'
 import Serviceonlinelist from '@/components/admin/Serviceonlinelist'
+import Servicequery from '@/components/admin/Servicequery'
 
 // 客服组件
 import ChangeDoctor_s from '@/components/service/Changedoctor'
@@ -69,7 +70,8 @@ export default new Router({
           meta:{isLogin:true, auth: 'admin'},
           children:[
             {path: '/admin/service_list1', component: Servicelist, name: '所有客服', meta:{ isLogin:true, auth: 'admin'}},
-            {path: '/admin/service_list2', component: Serviceonlinelist, name: '在线客服', meta:{ isLogin:true, auth: 'admin'}}
+            {path: '/admin/service_list2', component: Serviceonlinelist, name: '在线客服', meta:{ isLogin:true, auth: 'admin'}},
+            {path: '/admin/service_list3', component: Servicequery, name: '工作量统计', meta:{ isLogin:true, auth: 'admin'}},
             ]
     },
     // 客服主界面

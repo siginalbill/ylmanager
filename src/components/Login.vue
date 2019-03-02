@@ -80,7 +80,9 @@
                             sessionStorage.setItem("auth", data.data.userFlag);
                             // 保存token，用于后台身份认证
                             this.cookieApi.setTokenCookie( data.data.token);
-
+                            // 更新传回token
+                            console.log(data.data.token);
+                            this.$axios.defaults.headers.post['Authorization'] = 'bearer ' + data.data.token;
                             sessionStorage.setItem("user", JSON.stringify({name:data.data.userName}));
                             // 登录成功提示
                             this.$message.success('登录成功');

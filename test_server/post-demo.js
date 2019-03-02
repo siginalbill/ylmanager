@@ -131,7 +131,7 @@ app.post('/login', bodyParser.json(), function (req, res) {
             "loginFlag":"success",
             "userFlag":"admin",
             "userName":"马飞飞",
-            "token":"3424234523"
+            "token":Math.round(Math.random()*10)
         };
         console.log(response);
         res.end(JSON.stringify(response));
@@ -168,10 +168,21 @@ app.post('/login', bodyParser.json(), function (req, res) {
 
 
 // 一些普通的http接口
+app.post('/admin/queryService', bodyParser.json(), function (req, res) {
+  console.log(req.body);
+  var response = {"code":2005 ,"data":{"items":[
+        {"acount":"123456", "name":"王倩", "registersNum":Math.round(Math.random()*10), "lecturesNum":1, "recommendNum":1},
+        {"acount":"123457", "name":"李本伟", "registersNum":Math.round(Math.random()*10), "lecturesNum":1, "recommendNum":1}
+      ]}};
+  console.log(response);
+  res.end(JSON.stringify(response));
+  // 输出 JSON 格式
+});
+
 app.post('/admin/addService', bodyParser.json(), function (req, res) {
   console.log(req.body);
   var response = {
-      "status":2000
+    "status":2000
   };
   console.log(response);
   res.end(JSON.stringify(response));

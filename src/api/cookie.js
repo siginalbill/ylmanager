@@ -5,7 +5,7 @@ function getTokenCookie() {
     for (var i = 0; i < arr.length; i++) {
       var arr2 = arr[i].split('='); //再次切割
       //判断查找相对应的值
-      if (arr2[0] == 'token') {
+      if (arr2[0] === 'token') {
         return arr2[1];
       }
     }
