@@ -72,7 +72,7 @@
       // this.fetchData()
       this.socketApi.setCallback(this.setSession);
       // 主动请求数据
-      this.socketApi.sendSock({type:"get", method:"getServiceList",token:this.cookieApi.getTokenCookie()});
+      this.socketApi.sendSock({code:"2004", message:"getServiceList" });
     },
     methods: {
       // http加载数据

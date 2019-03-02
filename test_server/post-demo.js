@@ -105,12 +105,13 @@ app.ws('/ws', function(ws, req) {
     // ws.send(JSON.stringify());
     msg = JSON.parse(msg);
 
-    if(msg.method === "getRegistList"){
+    if(msg.message === "getRegistList" && msg.code === "2008"){
       console.log("get request");
       var response = {"code":2008 ,"data":{"items":[
             {"id":"234252352345","account":"123456", "name":"王倩", "class":"肛肠科", "others":Math.round(Math.random()*10)},
             {"id":"252352522525","account":"123457", "name":"ledkf", "class":"肛肠科", "others":Math.round(Math.random()*10)},
           ]}};
+      console.log(response);
       try {
         ws.send(JSON.stringify(response))
       }catch (e) {

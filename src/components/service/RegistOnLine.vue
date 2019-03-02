@@ -74,7 +74,7 @@
       // this.fetchData()
       this.socketApi.setCallback(this.setSession);
       // 主动请求数据
-      this.socketApi.sendSock({"type":"get", "method":"getRegistList","token":this.cookieApi.getTokenCookie()});
+      this.socketApi.sendSock({"code":"2008", "message":"getRegistList"});
     },
     methods: {
       postRegist(row) {

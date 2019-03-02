@@ -61,7 +61,7 @@
       // this.fetchData()
       this.socketApi.setCallback(this.setSession);
       // 主动请求数据
-      this.socketApi.sendSock({type:"get", method:"getServiceOnLineList",token:this.cookieApi.getTokenCookie()})
+      this.socketApi.sendSock({code:"2007", message:"getServiceOnLineList"})
     },
     methods: {
       // websocket加载数据渲染列表

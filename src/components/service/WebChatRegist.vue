@@ -68,8 +68,8 @@
       // this.fetchData()
       this.socketApi.setCallback(this.setSession);
       // 主动请求数据
-      this.socketApi.sendSock({type:"get", method:"getDoctorList",token:this.cookieApi.getTokenCookie()});
-      this.socketApi.sendSock({type:"get", method:"getWaitList",token:this.cookieApi.getTokenCookie()});
+      this.socketApi.sendSock({"code":2009, "message":" getDoctorList "});
+      this.socketApi.sendSock({"code":2010, "message":" getWaitList "});
     },
     methods: {
       // websocket加载数据渲染列表
