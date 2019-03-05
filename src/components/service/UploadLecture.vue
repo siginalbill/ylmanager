@@ -18,6 +18,12 @@
         </el-radio-group>
       </el-form-item>
 
+      <el-form-item label="摘要">
+        <el-col :span="20">
+          <el-input v-model="form.blief"/>
+        </el-col>
+      </el-form-item>
+
       <el-form-item label="上传文件(不能为空)">
         <el-col :span="20">
           <!--上传医生图片-->
@@ -26,7 +32,7 @@
             drag
             accept=".mp4, .mp3, .wav"
             :limit=1
-            list-type="picture-card"
+            list-type="text"
             :action="doUpload()"
             :before-upload="beforeUpload"
             ref="newupload"
@@ -89,10 +95,11 @@
         this.form = {};
       },
       beforeUpload(file){
-        if (file!=null && this.form.title!=null){
+        if (file!=null && this.form.title!=null && this.form.blief!=null){
           let fd = new FormData();
           fd.append('file',file);//传文件
           fd.append('title',this.form.title);//传其他参数
+          fd.append('blief',this.form.blief);//传其他参数
           if (this.form.type === 1){
             // 视频
             this.$axios.post('/service/uploadLecturevideo',fd).then(function(res){
@@ -110,6 +117,7 @@
         } else {
           this.openWarn("不能为空");
         }
+        return false
 
       },
       newSubmitForm(){

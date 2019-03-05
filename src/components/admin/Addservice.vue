@@ -43,7 +43,7 @@
         if (this.form.account != null && this.form.name != null && this.form.pass != null) {
           this.$axios.post("/admin/addService", {account: this.form.account, name: this.form.name, pass: this.form.pass})
             .then(data => {
-              if (data.data.status === 2000) {
+              if (data.data.status === "2000") {
                 this.$message('创建成功');
                 this.form = {};
               } else {

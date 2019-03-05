@@ -81,7 +81,7 @@
         // console.log(JSON.parse(this.userApi.getUserCookie()))
         this.$axios.post("/service/ownRegist", {id: row.id, user_account: row.account, service_account: JSON.parse(this.userApi.getUserCookie()).userAccount})
           .then(data => {
-            if (data.data.status === 2000) {
+            if (data.data.status === "2000") {
               this.openWarn('接单成功');
             } else {
               this.openError(data.data.message)
@@ -91,12 +91,12 @@
       // websocket加载数据渲染列表
       setSession(data){
         data = JSON.parse(data);
-        if (data.code === 2008) {
+        if (data.code === "2008") {
           this.listLoading = true;
           this.list = data.data.items;
           this.listLoading = false;
           // 确认收到
-          this.socketApi.sendSock(JSON.stringify({"code":2008,"message":"客户端调试信息"}));
+          this.socketApi.sendSock(JSON.stringify({"code":"2008","message":"客户端调试信息"}));
         }
       },
       openWarn(message) {

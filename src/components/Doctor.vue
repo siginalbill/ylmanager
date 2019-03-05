@@ -109,8 +109,8 @@
       },
       onCall(data){
         data = JSON.parse(data);
-        if (data.code === 2011) {
-          this.socketApi.sendSock({code:2011, message:"调试"});
+        if (data.code === "2011") {
+          this.socketApi.sendSock({code:"2011", message:"调试"});
           // 打开对话框并跳转
             this.openBox(data.roomid);
         }

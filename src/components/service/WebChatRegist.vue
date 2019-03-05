@@ -68,25 +68,25 @@
       // this.fetchData()
       this.socketApi.setCallback(this.setSession);
       // 主动请求数据
-      this.socketApi.sendSock({"code":2009, "message":" getDoctorList "});
-      this.socketApi.sendSock({"code":2010, "message":" getWaitList "});
+      this.socketApi.sendSock({"code":"2009", "message":" getDoctorList "});
+      this.socketApi.sendSock({"code":"2010", "message":" getWaitList "});
     },
     methods: {
       // websocket加载数据渲染列表
       setSession(data){
         data = JSON.parse(data);
-        if (data.code === 2009) {
+        if (data.code === "2009") {
           // 获取在线医生
           this.doctorList = data.data.items;
           // 确认收到
-          this.socketApi.sendSock({"code":2009,"message":"客户端调试信息"});
-        }else if(data.code === 2010) {
+          this.socketApi.sendSock({"code":"2009","message":"客户端调试信息"});
+        }else if(data.code === "2010") {
           // 获取到问诊用户
           this.listLoading = true;
           this.list = data.data.items;
           this.listLoading = false;
           // 确认收到
-          this.socketApi.sendSock({"code":2010,"message":"客户端调试信息"});
+          this.socketApi.sendSock({"code":"2010","message":"客户端调试信息"});
         }
       },
       postRegist(row) {
@@ -94,7 +94,7 @@
         if(row.doctorAccount!=null){
           this.$axios.post("/service/setWebChat", { userAccount: row.account, doctorAccount: row.doctorAccount})
             .then(data => {
-              if (data.data.status === 2000) {
+              if (data.data.status === "2000") {
                 this.openWarn('调度成功');
               } else {
                 this.openError(data.data.message);

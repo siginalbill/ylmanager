@@ -67,12 +67,12 @@
       // websocket加载数据渲染列表
       setSession(data){
         data = JSON.parse(data);
-        if (data.code === 2007) {
+        if (data.code === "2007") {
           this.listLoading = true;
           this.list = data.data.items;
           this.listLoading = false;
           // 确认收到
-          this.socketApi.sendSock({"code":2007,"message":"客户端调试信息"});
+          this.socketApi.sendSock({"code":"2007","message":"客户端调试信息"});
         }
       }
     }

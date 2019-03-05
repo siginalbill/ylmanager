@@ -62,7 +62,7 @@
     created(){
       this.$axios.post("/service/getRegist", {})
         .then(data => {
-          if (data.data.status === 2000) {
+          if (data.data.status === "2000") {
             this.$message('获取成功');
             this.regist = data.data;
             // console.log(this.regist);
@@ -90,7 +90,7 @@
         if(this.regist.id!=null && this.form.text!=null){
           this.$axios.post("/service/postRegist", {id: this.regist.id, result: this.form.text})
             .then(data => {
-              if (data.data.status === 2000) {
+              if (data.data.status === "2000") {
                 this.$message('上传成功');
               } else {
                 this.$message({

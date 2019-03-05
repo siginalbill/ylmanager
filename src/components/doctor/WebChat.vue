@@ -128,7 +128,7 @@
         }, function (err) {
           console.log("Leave channel failed");
         });
-        this.socketApi.sendSock({code:2012, message:"客户端主动挂断"});
+        this.socketApi.sendSock({code:"2012", message:"客户端主动挂断"});
         this.$message({
           type: 'success',
           message: '已挂断!'

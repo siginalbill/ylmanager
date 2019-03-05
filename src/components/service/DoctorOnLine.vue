@@ -53,13 +53,13 @@
       // websocket加载数据渲染列表
       setSession(data){
         data = JSON.parse(data);
-        if (data.code === 2009) {
+        if (data.code === "2009") {
           this.listLoading = true;
           this.list = data.data.items;
           sessionStorage.setItem("doctorOnline", JSON.stringify(this.list));
           this.listLoading = false;
           // 确认收到
-          this.socketApi.sendSock({"code":2009,"message":"客户端调试信息"});
+          this.socketApi.sendSock({"code":"2009","message":"客户端调试信息"});
         }
       }
     }

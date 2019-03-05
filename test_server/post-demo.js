@@ -53,7 +53,7 @@ app.ws('/ws', function(ws, req) {
   var obj11 = setInterval(cd111, 10000);
 
   // 语音连接
-  var r= {"code":2011 ,"roomid":"222"};
+  var r= {"code":"2011" ,"roomid":"222"};
   try {
     ws.send(JSON.stringify(r))
   }catch (e) {
@@ -180,6 +180,17 @@ app.post('/admin/queryService', bodyParser.json(), function (req, res) {
   // 输出 JSON 格式
 });
 
+app.post('/doctor/userList', bodyParser.json(), function (req, res) {
+  console.log(req.body);
+  var response = {"status":2000 ,"data":{"items":[
+        {"clientID":"123456789235"},
+        {"clientID":"123457123234"}
+      ]}};
+  console.log(response);
+  res.end(JSON.stringify(response));
+  // 输出 JSON 格式
+});
+
 app.post('/admin/addService', bodyParser.json(), function (req, res) {
   console.log(req.body);
   var response = {
@@ -200,6 +211,16 @@ app.post('/service/postRecommendation', bodyParser.json(), function (req, res) {
   // 输出 JSON 格式
 });
 
+app.post('/service/postReport', bodyParser.json(), function (req, res) {
+  console.log(req.body);
+  var response = {
+    "status":2000
+  };
+  console.log(response);
+  res.end(JSON.stringify(response));
+  // 输出 JSON 格式
+});
+
 app.post('/service/setWebChat', bodyParser.json(), function (req, res) {
   console.log(req.body);
   var response = {
@@ -210,15 +231,7 @@ app.post('/service/setWebChat', bodyParser.json(), function (req, res) {
   // 输出 JSON 格式
 });
 
-app.post('/doctor/postReport', bodyParser.json(), function (req, res) {
-  console.log(req.body);
-  var response = {
-    "status":2000
-  };
-  console.log(response);
-  res.end(JSON.stringify(response));
-  // 输出 JSON 格式
-});
+
 
 app.post('/service/ownRegist', bodyParser.json(), function (req, res) {
   console.log(req.body);
@@ -276,6 +289,18 @@ app.post('/admin/servicelist', bodyParser.json(), function (req, res) {
 var multer = require('multer')
 const upload = multer({ dest: 'uploads/' });
 app.use(upload.single('file')); //
+
+app.post('/doctor/postReport', (req, res)=>{
+  console.log(req.headers.cookie);
+  console.log(req.body);//获取到的age和name
+  console.log(req.file);//获取到的文件
+  //做些其他事情
+  var response = {
+    "status":2000
+  };
+  console.log(response);
+  res.end(JSON.stringify(response));
+});
 
 app.post('/admin/changeDoctor', (req, res)=>{
   console.log(req.headers.cookie);

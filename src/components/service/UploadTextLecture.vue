@@ -46,7 +46,7 @@
         if (this.form.title!=null && this.form.blief != null && this.form.text != null) {
           this.$axios.post("/service/uploadLecturetext", {title: this.form.title, blief: this.form.blief, text: this.form.text})
             .then(data => {
-              if (data.data.status === 2000) {
+              if (data.data.status === "2000") {
                 this.$message('创建成功');
                 this.form = { }
               } else {

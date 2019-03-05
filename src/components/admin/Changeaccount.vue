@@ -44,7 +44,7 @@
         if (this.form.account != null && this.form.type != null && this.form.value != null) {
           this.$axios.post("/admin/changeAccount", {account: this.form.account, type: this.form.type, value: this.form.value})
             .then(data => {
-              if (data.data.status === 2000) {
+              if (data.data.status === "2000") {
                 this.$message('修改成功');
                 this.form = {};
               } else {

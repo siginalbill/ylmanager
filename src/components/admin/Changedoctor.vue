@@ -71,7 +71,7 @@
         if (this.form.account != null){
           this.$axios.post("/admin/changeDoctor", {account: this.form.account, name: this.form.name, class: this.form.class, blief: this.form.blief})
             .then(data => {
-              if (data.data.status === 2000) {
+              if (data.data.status === "2000") {
                 this.$message('修改成功');
               } else {
                 this.openError(data.data.message);
