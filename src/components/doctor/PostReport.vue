@@ -96,26 +96,36 @@
         // 传一个无用url
         return "/useless";
       },
+      openWarn(message) {
+        this.$alert(message, '消息', {
+          confirmButtonText: '确定',
+          callback: action => {
+            // 确认操作回调函数
+          }
+        });
+      },
+      openError(message) {
+        this.$alert(message, '错误', {
+          confirmButtonText: '确定',
+          callback: action => {
+            // 确认操作回调函数
+          }
+        });
+      },
       beforeUpload(file){
         if (file!=null && this.form.clientID!=null ){
           let fd = new FormData();
           fd.append('file',file);//传文件
           fd.append('clientID',this.form.clientID);//传其他参数
           // 上传
-          console.log(this.form.clientID)
           this.$axios.post('/doctor/postReport',fd).then(function(res){
 
           }).catch(
-            (e)=>{console.log(e.toString());}
+            // (e)=>{console.log(e.toString());}
           );
 
         } else {
-          this.$alert("不能为空", '错误', {
-            confirmButtonText: '确定',
-            callback: action => {
-              // 确认操作回调函数
-            }
-          });
+          this.openError("不能为空")
         }
         // 停止action继续执行
         return false
