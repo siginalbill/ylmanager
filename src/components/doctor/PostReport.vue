@@ -2,11 +2,13 @@
 
   <div class="app-container">
     <p></p>
-    <el-carousel :interval="5000" arrow="always">
-      <el-carousel-item v-for="item in 4" :key="item">
-        <h3>{{ item }}</h3>
+    <el-carousel :interval="5000" arrow="always" >
+      <el-carousel-item v-for="item in imageList" :key="item" >
+        <!--<h3>{{ item }}</h3>-->
+        <img :src="item" alt="ddd">
       </el-carousel-item>
     </el-carousel>
+    <p></p>
     <el-form ref="form" :model="form" label-width="120px">
 
       <el-form-item label="用户账号" >
@@ -62,27 +64,15 @@
   export default {
     data() {
       return {
-        form: { clientID: this.$route.query.client }
+        form: { clientID: this.$route.query.client },
+        imageList : ["http://www.w3school.com.cn/i/eg_tulip.jpg", "http://tpc.googlesyndication.com/daca_images/simgad/17480219307005942326", "https://www.html5tricks.com/wp-content/uploads/2019/01/html5-css3-3d-slider.png"]
       }
     },
     created(){
     },
     methods: {
       onSubmit() {
-        // if (this.form.account != null && this.form.name != null && this.form.text != null){
-        //   this.$axios.post("/doctor/postReport", {account: this.form.account, name: this.form.name, result: this.form.text})
-        //     .then(data => {
-        //       if (data.data.status === "2000") {
-        //         this.$message('创建成功');
-        //         this.form = { }
-        //       } else {
-        //         this.openError(data.data.message);
-        //       }
-        //     }).catch(()=>{this.openError("系统错误");});
-        // } else {
-        //   this.openWarn('输入不能为空');
-        // }
-        //确定上传
+
         this.$refs.newupload.submit();
       },
       onCancel() {
@@ -139,12 +129,8 @@
   .line{
     text-align: center;
   }
-  .el-carousel__item h3 {
-    color: #475669;
-    font-size: 18px;
-    opacity: 0.75;
-    line-height: 300px;
-    margin: 0;
+  .el-carousel__item img {
+
   }
 
   .el-carousel__item:nth-child(2n) {
