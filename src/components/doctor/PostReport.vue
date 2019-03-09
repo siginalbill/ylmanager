@@ -161,8 +161,12 @@
         this.listLoading = true;
         this.$axios.post('/doctor/getSkinInfo', {clientID:this.form.clientID})
           .then(data => {
-            this.userData = data.data.data.items;
-          })
+              this.userData = data.data.data.items;
+              for (var i = 0; i < this.userData.length; i++){
+                this.userData[i].url = "data:image/jpeg;base64," + this.userData[i].url
+              }
+            }
+          )
       },
     }
   }
