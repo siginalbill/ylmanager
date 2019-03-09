@@ -2,12 +2,50 @@
 
   <div class="app-container">
     <p></p>
-    <el-carousel :interval="5000" arrow="always" >
-      <el-carousel-item v-for="item in imageList" :key="item" >
-        <!--<h3>{{ item }}</h3>-->
-        <img :src="item" alt="ddd">
+    <el-carousel :autoplay="false" arrow="always" >
+      <el-carousel-item v-for="item in userData " :key="item" >
+        <!--<el-row>-->
+          <!--<el-col :span="12">-->
+            <!--<img :src="item">-->
+          <!--</el-col>-->
+          <!--<el-col :span="12">-->
+            <!--<div>klsdfjlksdfjsdkljfsklfjklsdfjdklsfjlksfjskldfjsdklfjdkslfjlskfjkldsjfks</div>-->
+          <!--</el-col>-->
+        <!--</el-row>-->
+        <el-row>
+          <el-col :span="12">
+            <img :src="item.url">
+          </el-col>
+          <el-col :span="12">
+            <div>{{item.jsonString}}</div>
+          </el-col>
+        </el-row>
       </el-carousel-item>
+
+
     </el-carousel>
+
+
+    <!--<el-table-->
+      <!--v-loading="listLoading"-->
+      <!--:data="list"-->
+      <!--element-loading-text="Loading"-->
+      <!--border-->
+      <!--fit-->
+      <!--highlight-current-row>-->
+      <!--<el-table-column label="用户账号"  align="center">-->
+        <!--<template slot-scope="scope">-->
+          <!--{{ scope.row.clientID }}-->
+        <!--</template>-->
+      <!--</el-table-column>-->
+
+      <!--<el-table-column label="操作"  align="center">-->
+        <!--<template slot-scope="scope">-->
+          <!--<el-button type="primary" size="small" icon="el-icon-edit" @click="postRegist(scope.row)">编辑健康报告</el-button>-->
+        <!--</template>-->
+      <!--</el-table-column>-->
+
+    <!--</el-table>-->
     <p></p>
     <el-form ref="form" :model="form" label-width="120px">
 
@@ -65,14 +103,15 @@
     data() {
       return {
         form: { clientID: this.$route.query.client },
+        userData : [],
         imageList : ["http://www.w3school.com.cn/i/eg_tulip.jpg", "http://tpc.googlesyndication.com/daca_images/simgad/17480219307005942326", "https://www.html5tricks.com/wp-content/uploads/2019/01/html5-css3-3d-slider.png"]
       }
     },
     created(){
+      this.fetchData()
     },
     methods: {
       onSubmit() {
-
         this.$refs.newupload.submit();
       },
       onCancel() {
@@ -109,18 +148,22 @@
           fd.append('clientID',this.form.clientID);//传其他参数
           // 上传
           this.$axios.post('/doctor/postReport',fd).then(function(res){
-
           }).catch(
             // (e)=>{console.log(e.toString());}
           );
-
         } else {
           this.openError("不能为空")
         }
         // 停止action继续执行
         return false
       },
-
+      fetchData () {
+        this.listLoading = true;
+        this.$axios.post('/doctor/getSkinInfo', {clientID:this.form.clientID})
+          .then(data => {
+            this.userData = data.data.data.items;
+          })
+      },
     }
   }
 </script>
@@ -130,15 +173,6 @@
     text-align: center;
   }
   .el-carousel__item img {
-
   }
 
-  .el-carousel__item:nth-child(2n) {
-    background-color: #99a9bf;
-  }
-
-  .el-carousel__item:nth-child(2n+1) {
-    background-color: #d3dce6;
-  }
 </style>
-

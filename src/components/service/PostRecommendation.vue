@@ -118,7 +118,7 @@
           fd.append('blief',this.form.blief);//传其他参数
           fd.append('text',this.form.text);//传其他参数
             // 上传
-            this.$axios.post('/service/uploadLecturevideo',fd).then(function(res){
+            this.$axios.post('/service/postRecommendation',fd).then(function(res){
               this.openWarn("上传成功");
             }).catch(
               // (e)=>{this.openError(e.toString());}
