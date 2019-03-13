@@ -69,8 +69,8 @@ export default new Router({
     { path: '/admin/', component: Admin, name: '客服管理', iconCls: 'fa fa-bar-chart',
           meta:{isLogin:true, auth: 'admin'},
           children:[
-            {path: '/admin/service_list1', component: Servicelist, name: '所有客服', meta:{ isLogin:true, auth: 'admin'}},
-            {path: '/admin/service_list2', component: Serviceonlinelist, name: '在线客服', meta:{ isLogin:true, auth: 'admin'}},
+            // {path: '/admin/service_list1', component: Servicelist, name: '所有客服', meta:{ isLogin:true, auth: 'admin', isHidden:true}},
+            // {path: '/admin/service_list2', component: Serviceonlinelist, name: '在线客服', meta:{ isLogin:true, auth: 'admin', isHidden:true}},
             {path: '/admin/service_list3', component: Servicequery, name: '工作量统计', meta:{ isLogin:true, auth: 'admin'}},
             ]
     },

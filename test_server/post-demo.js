@@ -171,7 +171,7 @@ app.post('/login', bodyParser.json(), function (req, res) {
 // 一些普通的http接口
 app.post('/admin/queryService', bodyParser.json(), function (req, res) {
   console.log(req.body);
-  var response = {"code":2005 ,"data":{"items":[
+  var response = {"code":"2005" ,"data":{"items":[
         {"acount":"123456", "name":"王倩", "registersNum":Math.round(Math.random()*10), "lecturesNum":1, "recommendNum":1},
         {"acount":"123457", "name":"李本伟", "registersNum":Math.round(Math.random()*10), "lecturesNum":1, "recommendNum":1}
       ]}};
