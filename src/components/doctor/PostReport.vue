@@ -2,22 +2,31 @@
 
   <div class="app-container">
     <p></p>
-    <el-carousel :autoplay="false" arrow="always" >
-      <el-carousel-item v-for="item in userData " :key="item" >
-        <!--<el-row>-->
-          <!--<el-col :span="12">-->
-            <!--<img :src="item">-->
-          <!--</el-col>-->
-          <!--<el-col :span="12">-->
-            <!--<div>klsdfjlksdfjsdkljfsklfjklsdfjdklsfjlksfjskldfjsdklfjdkslfjlskfjkldsjfks</div>-->
-          <!--</el-col>-->
-        <!--</el-row>-->
+    <el-carousel :autoplay="false" arrow="always" height="1000px" >
+      <el-carousel-item v-for="item in userData " :key="item.jsonString" >
         <el-row>
           <el-col :span="12">
             <img :src="item.url">
           </el-col>
           <el-col :span="12">
-            <div>{{item.jsonString}}</div>
+            <!--<div>{{item.jsonString}}</div>-->
+            <el-table
+              :data="parseUrlString(item.jsonString)"
+              border
+              fit
+              highlight-current-row>
+              <el-table-column label="项目"  align="center">
+                <template slot-scope="scope">
+                  {{ scope.row[0] }}
+                </template>
+              </el-table-column>
+              <el-table-column label="结果"  align="center">
+                <template slot-scope="scope">
+                  {{ scope.row[1] }}
+                </template>
+              </el-table-column>
+
+            </el-table>
           </el-col>
         </el-row>
       </el-carousel-item>
@@ -26,26 +35,7 @@
     </el-carousel>
 
 
-    <!--<el-table-->
-      <!--v-loading="listLoading"-->
-      <!--:data="list"-->
-      <!--element-loading-text="Loading"-->
-      <!--border-->
-      <!--fit-->
-      <!--highlight-current-row>-->
-      <!--<el-table-column label="用户账号"  align="center">-->
-        <!--<template slot-scope="scope">-->
-          <!--{{ scope.row.clientID }}-->
-        <!--</template>-->
-      <!--</el-table-column>-->
 
-      <!--<el-table-column label="操作"  align="center">-->
-        <!--<template slot-scope="scope">-->
-          <!--<el-button type="primary" size="small" icon="el-icon-edit" @click="postRegist(scope.row)">编辑健康报告</el-button>-->
-        <!--</template>-->
-      <!--</el-table-column>-->
-
-    <!--</el-table>-->
     <p></p>
     <el-form ref="form" :model="form" label-width="120px">
 
@@ -102,9 +92,8 @@
   export default {
     data() {
       return {
-        form: { clientID: this.$route.query.client },
-        userData : [],
-        imageList : ["http://www.w3school.com.cn/i/eg_tulip.jpg", "http://tpc.googlesyndication.com/daca_images/simgad/17480219307005942326", "https://www.html5tricks.com/wp-content/uploads/2019/01/html5-css3-3d-slider.png"]
+        form: {clientID: this.$route.query.client},
+        userData: [],
       }
     },
     created(){
@@ -168,6 +157,20 @@
             }
           )
       },
+      parseUrlString(result){
+        result = JSON.parse(result)
+        let message = [];
+        message[0] = ["整体得分", result["score"]]
+        message[1] = ["有黑头概率", result["heitou"][0]]
+        message[2] = ["有痘痘概率", result["dou"][0]]
+        message[3] = ["有斑概率", result["ban"][0]]
+        message[4] = ["肤色分析", "偏白"+result["fuse"][0] + "自然"+result["fuse"][1] + "偏黄"+result["fuse"][2]]
+        message[5] = ["体质描述", result["body"]]
+        message[6] = ["饮食建议", result["diet"]]
+        message[7] = ["美容方剂", result["medicine"]]
+        message[8] = ["生药",result["drug"] ]
+        return message
+      }
     }
   }
 </script>
